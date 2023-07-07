@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import ticketService from '../services/ticket-service';
-import { AuthenticatedRequest } from '../middlewares';
+import ticketService from '@/services/ticket-service';
+import { AuthenticatedRequest } from '@/middlewares';
 
 export async function getTicketsTypes(_req: Request, res: Response) {
   try {
