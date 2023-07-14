@@ -1,8 +1,6 @@
-import httpStatus from 'http-status';
 import paymentRepository from '@/repositories/payments-repository';
 import ticketRepository from '@/repositories/tickets-repository';
-import enrollmentRepository from '@/repositories/enrollment-repository';
-import { notFoundError, requestError, unauthorizedError } from '@/errors';
+import { notFoundError, unauthorizedError } from '@/errors';
 import { PaymentBody } from '@/protocols';
 
 export async function getPayment(ticketId: number, userId: number) {
