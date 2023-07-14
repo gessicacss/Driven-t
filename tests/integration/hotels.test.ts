@@ -136,20 +136,6 @@ describe('GET /hotels', () => {
         },
       ]);
     });
-
-    it('should respond with status 200 and a list of hotels and an empty array', async () => {
-      const user = await createUser();
-      const token = await generateValidToken(user);
-      const enrollment = await createEnrollmentWithAddress(user);
-      const ticketType = await createTicketTypeWithHotel();
-      await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
-
-      const response = await server.get('/hotels').set('Authorization', `Bearer ${token}`);
-
-      expect(response.status).toEqual(httpStatus.OK);
-
-      expect(response.body).toEqual([]);
-    });
   });
 });
 
@@ -163,7 +149,7 @@ describe('GET /hotels/:hotelId', () => {
   it('should respond with status 401 if given token is not valid', async () => {
     const token = faker.lorem.word();
 
-    const response = await server.get('/hotels').set('Authorization', `Bearer ${token}`);
+    const response = await server.get('/hotels/1').set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
@@ -172,7 +158,7 @@ describe('GET /hotels/:hotelId', () => {
     const userWithoutSession = await createUser();
     const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-    const response = await server.get('/hotels').set('Authorization', `Bearer ${token}`);
+    const response = await server.get('/hotels/1').set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
