@@ -31,6 +31,9 @@ export async function getHotelsById(req: AuthenticatedRequest, res: Response) {
     if (err.name === 'NotFoundError') {
       return res.status(httpStatus.NOT_FOUND).send(err.message);
     }
+    if (err.name === 'BadRequest') {
+      return res.status(httpStatus.BAD_REQUEST).send(err.message);
+    }
     if (err.name === 'PaymentRequired') {
       return res.status(httpStatus.PAYMENT_REQUIRED).send(err.message);
     }
