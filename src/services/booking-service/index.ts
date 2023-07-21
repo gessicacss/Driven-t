@@ -54,7 +54,7 @@ async function updateBooking(bookingId: number, roomId: number, userId: number) 
   }
 
   const updatedBooking = await bookingRepository.changeBooking(roomId, bookingId);
-  return updatedBooking;
+  return { bookingId: updatedBooking.id };
 }
 
 const bookingService = {

@@ -309,6 +309,7 @@ describe('PUT booking', () => {
         .send({ roomId: room.id });
 
       expect(response.status).toEqual(httpStatus.OK);
+      expect(response.body).toEqual({ bookingId: expect.any(Number) });
     });
   });
 });
