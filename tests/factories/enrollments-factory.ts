@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker';
 import { generateCPF, getStates } from '@brazilian-utils/brazilian-utils';
-import { User } from '@prisma/client';
+import { Address, Enrollment, User } from '@prisma/client';
 
 import { createUser } from './users-factory';
 import { prisma } from '@/config';
@@ -41,3 +41,34 @@ export function createhAddressWithCEP() {
     uf: 'SP',
   };
 }
+
+interface UserWithAddress extends Enrollment {
+  Address: Address[];
+}
+
+// Use o faker para gerar os dados aleatórios
+export const mockUser: UserWithAddress = {
+  id: faker.datatype.number(),
+  name: faker.name.findName(),
+  cpf: generateCPF(),
+  birthday: faker.date.past(),
+  phone: faker.phone.phoneNumber('(##) 9####-####'),
+  userId: faker.datatype.number(),
+  Address: [
+    {
+      id: faker.datatype.number(),
+      street: faker.address.streetName(),
+      cep: faker.address.zipCode(),
+      city: faker.address.city(),
+      neighborhood: faker.address.city(),
+      number: faker.datatype.number().toString(),
+      state: faker.helpers.arrayElement(getStates()).name,
+      addressDetail: 'Detalhes do endereço',
+      enrollmentId: faker.datatype.number(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ],
+  createdAt: undefined,
+  updatedAt: undefined,
+};
